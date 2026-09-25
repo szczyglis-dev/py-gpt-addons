@@ -1,0 +1,28 @@
+{
+  "extensions": [
+    {
+      "id": "example_plugin",
+      "name": "Example Plugin",
+      "description": "Add-on stored inside the official registry repository.",
+      "author": "PyGPT example",
+      "version": "1.0.0",
+      "type": "plugin",
+      "path": "./examples/plugins/example_plugin",
+      "trusted": true,
+      "official": true
+    },
+    {
+      "id": "example-extension-dark",
+      "name": "Third-party Theme",
+      "description": "Add-on hosted in another GitHub repository.",
+      "author": "Third-party author",
+      "version": "1.0.0",
+      "type": "theme",
+      "github_url": "https://github.com/szczyglis-dev/py-gpt-addons",
+      "github_path": "examples/themes/example-extension-dark",
+      "ref": "master",
+      "trusted": false,
+      "official": false
+    }
+  ]
+}
