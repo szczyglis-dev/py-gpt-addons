@@ -97,3 +97,7 @@ Additional PyGPT links:
 ## License and third-party content
 
 Each contributed third-party add-on, Skill, or MCP Connector may have its own license and terms. Check the linked project before installing or redistributing it. Contributions to this catalog should only reference content you are permitted to publish and distribute.
+
+## Changelog
+
+- **2026-09-25** - initial launch.
