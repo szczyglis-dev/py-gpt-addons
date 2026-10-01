@@ -1,6 +1,6 @@
 # Official PyGPT Add-ons repository
 
-**Last updated:** 2026-09-29
+**Last updated:** 2026-09-30
 
 This is the official add-ons repository and public catalog for [PyGPT](https://github.com/szczyglis-dev/py-gpt). It contains the registries used by PyGPT to discover **official** and **third-party/community** add-ons, together with additional installable resources such as Agent Skills and MCP Connectors.
 
@@ -10,9 +10,9 @@ The repository is intended to be a central place for discovering, reviewing, and
 
 The repository maintains the following public registries:
 
-- [`addons.json`](./addons.json) — PyGPT add-ons such as plugins, providers, tools, themes, locale packs, vector stores, data loaders, and other supported add-on types.
-- [`mcp.json`](./mcp.json) — MCP Connector definitions that can be browsed and imported from PyGPT.
-- [`skills.json`](./skills.json) — Agent Skills available through the PyGPT Skills catalog.
+- [`addons.json`](./addons.json) - PyGPT add-ons such as plugins, providers, tools, themes, locale packs, vector stores, data loaders, and other supported add-on types.
+- [`mcp.json`](./mcp.json) - MCP Connector definitions that can be browsed and imported from PyGPT.
+- [`skills.json`](./skills.json) - Agent Skills available through the PyGPT Skills catalog.
 
 PyGPT can browse these catalogs from its built-in add-on, connector, and skill managers.
 
@@ -83,7 +83,8 @@ The [`examples`](./examples) directory contains example add-on packages and refe
 
 Complete documentation for creating, packaging, installing, and publishing PyGPT add-ons is available here:
 
-**[PyGPT documentation — Extending PyGPT](https://pygpt.readthedocs.io/en/latest/extending.html)**
+**[PyGPT documentation - Extending PyGPT](https://pygpt.readthedocs.io/en/latest/extending.html)**
+**[PyGPT documentation - Add-ons API](https://pygpt.readthedocs.io/en/latest/addons_api.html)**
 
 It covers the add-on manifest, all supported add-on types, Python entry points, plugins and providers, themes, locale packs, GitHub/monorepo layouts, registry entries, profile portability, and custom launcher registration.
 

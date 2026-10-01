@@ -1,7 +1,5 @@
 # External Add-ons examples
 
-This directory is the developer tutorial set for the public `py-gpt-addons` repository and mirrors the examples shipped with the main PyGPT repository.
-
 This directory contains runnable/tutorial Add-ons and mirrors the runtime `%workdir%/addons` layout. Each directory containing a `manifest.json` is one independently installable package. Import **one add-on directory at a time** with **Config -> Install Add-on...**, import a ZIP containing exactly one package, or copy it to the matching `%workdir%/addons/<type-dir>/<id>` directory and restart PyGPT.
 
 The examples are deliberately small, but they now execute real code instead of only registering names:
@@ -19,6 +17,20 @@ The examples are deliberately small, but they now execute real code instead of o
 - `locale/example-locale` — static locale package.
 
 `manifest.example.json` documents manifest/dependency syntax. `addons.registry.example.json` shows both a package committed to the official `py-gpt-addons` repository and a package hosted in another GitHub repository.
+
+## Private locale directories
+
+Every runtime Add-on type can optionally contain `locale/locale.<lang>.ini`. For an installed Add-on PyGPT registers this directory automatically as `addon.<manifest-id>` and assigns the domain to the runtime object; no manifest field or manual registration is required. English is the fallback locale.
+
+The examples intentionally show several integration paths:
+
+- `plugins/example_plugin` — automatic plugin name/description and option/command labels.
+- `tools/example_tool` — `self.trans()` plus `add_lang_mapping()` for private Qt objects and live language switching.
+- `llms/example_llm` — localized `provider.name` and provider-owned Settings fields using `use_locale=True`.
+- `audio_input`, `audio_output`, and `web` examples — provider options added through the owning plugin inherit the Add-on domain automatically.
+- `loaders/example_loader` — localized `init_args_labels` / `init_args_desc`.
+
+`vector_store` and `agent` Add-ons receive the same domain and can use `self.trans()` for their own UI/messages. A standalone `type: locale` Add-on is different: it installs global/profile locale resources rather than a private runtime domain.
 
 ## Suggested developer loop
 
