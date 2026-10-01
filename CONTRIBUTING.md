@@ -14,9 +14,42 @@ Your Add-on repository must:
 - use one of the Add-on types supported by PyGPT;
 - declare the exact release `version` and `min_app_version`;
 - document external dependencies and security-sensitive behavior;
-- contain a `sha256` field generated from the exact Add-on tree being submitted.
+- contain a `sha256` field generated from the exact Add-on tree being submitted;
+- publish that exact tree under an immutable Git release ref, preferably a version tag such as `v1.0.0` (an exact commit SHA is also acceptable). Do not submit `main`, `master`, or another moving branch as the public registry `ref`.
 
 A monorepo is supported. In that case, point `github_path` to the directory containing the Add-on's `manifest.json`.
+
+## Immutable release refs
+
+Every public Add-on version must remain downloadable exactly as it was reviewed. Before opening a registry PR:
+
+1. finish the release content and version in `manifest.json`;
+2. generate/write the final `sha256`;
+3. commit the exact release tree in your own repository;
+4. create and push an immutable version tag for that commit, for example `v1.0.0`;
+5. use that tag as the registry `ref`.
+
+Do **not** use `main`, `master`, or another moving branch as the `ref` of a public registry entry. A branch can change while the registry still contains the SHA-256 of the previously reviewed version. In that situation PyGPT correctly rejects the changed tree, but users can no longer install the currently approved release until the next registry PR is accepted. A stable release tag prevents that availability gap.
+
+Treat every published tag as immutable: never force-move, overwrite or delete a tag referenced by an accepted registry entry. Development can continue normally on your default branch immediately after tagging. For the next Add-on release, create a new tag (for example `v1.1.0`), calculate the new SHA-256 and open a new registry PR.
+
+An exact full commit SHA may be used instead of a version tag when needed, but version tags are preferred because they are easier to understand and correspond naturally to the Add-on `version`.
+
+For a package in a repository subdirectory, the equivalent GitHub browser/tree URL is, for example:
+
+```text
+https://github.com/user/repo/tree/v1.0.0/plugin
+```
+
+In `addons.json`, prefer the structured fields instead of embedding the tag into `github_url`:
+
+```json
+{
+  "github_url": "https://github.com/user/repo",
+  "github_path": "plugin",
+  "ref": "v1.0.0"
+}
+```
 
 ## Content SHA-256 pinning
 
@@ -72,7 +105,7 @@ Copy exactly the same value into the registry entry:
   "type": "plugin",
   "github_url": "https://github.com/githubuser/project",
   "github_path": "pygpt/my_plugin",
-  "ref": "main",
+  "ref": "v1.2.0",
   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
   "trusted": false,
   "official": false
@@ -99,7 +132,7 @@ A typical community entry contains:
   "type": "plugin",
   "github_url": "https://github.com/githubuser/project",
   "github_path": "pygpt/my_plugin",
-  "ref": "main",
+  "ref": "v1.0.0",
   "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
   "trusted": false,
   "official": false
@@ -116,14 +149,15 @@ In the PR description, include a concise security/review note covering any files
 
 When any file inside the published Add-on tree changes:
 
-1. update the Add-on version where appropriate;
+1. update the Add-on version;
 2. regenerate `sha256` and commit the new `manifest.json` to the Add-on's own repository;
-3. open a new PR here updating at least the registry `version`, `sha256`, and `ref` when applicable;
-4. wait for the registry PR to be reviewed and merged.
+3. create and push a **new immutable version tag** for that exact commit (for example `v1.1.0`);
+4. open a new PR here updating at least the registry `version`, `sha256`, and `ref`;
+5. wait for the registry PR to be reviewed and merged.
 
-Until the new digest is accepted into the public registry, PyGPT will reject installation of modified content for a pinned/trusted entry instead of silently trusting the new upstream code.
+Until the new registry PR is accepted, the existing registry entry continues to point to the previous immutable tag, so users can still install the currently approved version with its matching SHA-256.
 
-Do not reuse an old SHA-256 for changed content and do not change code in the upstream repository after review without submitting a matching registry update.
+Do not reuse an old SHA-256 for changed content, do not reuse/move an existing release tag for new content, and do not delete release tags referenced by accepted registry entries.
 
 ## PR checklist
 
@@ -132,5 +166,7 @@ Do not reuse an old SHA-256 for changed content and do not change code in the up
 - [ ] `manifest.json` contains the generated `sha256`.
 - [ ] `addons.json` contains the same `sha256`.
 - [ ] The hash was generated from the exact committed Add-on contents being submitted.
+- [ ] `ref` points to an immutable version tag (preferred) or exact commit SHA, not `main`/`master`/another moving branch.
+- [ ] The referenced release tag has been pushed and will not be moved or deleted.
 - [ ] Dependencies and security-sensitive capabilities are documented.
 - [ ] This is a new PR for this exact Add-on revision/update.

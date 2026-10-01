@@ -47,7 +47,7 @@ External add-ons are application-wide and are installed under the application ba
 
 ## Contributing
 
-Community Add-on source code should stay in the author's own GitHub repository. Submit only the catalog link/metadata to this repository; do not vendor the third-party Add-on code here. Every public `addons.json` entry must include a deterministic `sha256` content pin, and the same digest must be committed in the Add-on's upstream `manifest.json`. Any later Add-on update requires a new digest and a new registry PR.
+Community Add-on source code should stay in the author's own GitHub repository. Submit only the catalog link/metadata to this repository; do not vendor the third-party Add-on code here. Every public `addons.json` entry must include a deterministic `sha256` content pin, and the same digest must be committed in the Add-on's upstream `manifest.json`. Public entries must also point to an **immutable release ref**, preferably a version tag such as `v1.0.0` (or an exact commit SHA), rather than `main`/`master`. Any later Add-on update requires a new release tag/ref, a new digest and a new registry PR; previously published tags must remain unchanged and available.
 
 See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for the complete PR workflow, SHA-256 generation commands, registry examples, update rules, and security-review checklist.
 
