@@ -45,6 +45,12 @@ External add-ons are application-wide and are installed under the application ba
 > [!WARNING]
 > Add-ons execute with the same permissions as PyGPT. `trusted` and `official` are not a security sandbox or a guarantee that code is harmless. Public registry entries are content-pinned with SHA-256, and trusted entries must pass registry/manifest/content verification, which protects against silent upstream replacement after review. Always review third-party source code, dependencies, repository ownership, and requested capabilities before installing.
 
+## Publishing outside this catalog
+
+Publishing an Add-on in this repository is optional. You are free to keep an Add-on in your own public GitHub repository and distribute its repository URL directly to users without submitting it to the official PyGPT Add-ons catalog. Users can install independently distributed Add-ons through the supported manual/GitHub installation methods.
+
+The `trusted` status is reserved for Add-ons published and accepted through this official public registry. It is registry-controlled review metadata, not a trust flag that an Add-on author can self-assign in an independently distributed repository. Add-ons distributed outside this catalog should therefore be treated as untrusted third-party code and reviewed by the user before installation.
+
 ## Contributing
 
 Community Add-on source code should stay in the author's own GitHub repository. Submit only the catalog link/metadata to this repository; do not vendor the third-party Add-on code here. Every public `addons.json` entry must include a deterministic `sha256` content pin, and the same digest must be committed in the Add-on's upstream `manifest.json`. Public entries must also point to an **immutable release ref**, preferably a version tag such as `v1.0.0` (or an exact commit SHA), rather than `main`/`master`. Any later Add-on update requires a new release tag/ref, a new digest and a new registry PR; previously published tags must remain unchanged and available.
