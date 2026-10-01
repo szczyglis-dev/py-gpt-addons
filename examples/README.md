@@ -16,7 +16,7 @@ The examples are deliberately small, but they now execute real code instead of o
 - `themes/example-extension-dark` - static theme package.
 - `locale/example-locale` - static locale package.
 
-`manifest.example.json` documents manifest/dependency syntax. `addons.registry.example.json` shows both a package committed to the official `py-gpt-addons` repository and a package hosted in another GitHub repository.
+`manifest.example.json` documents manifest/dependency syntax, including the `sha256` integrity field. `addons.registry.example.json` shows both a package committed to the official `py-gpt-addons` repository and a package hosted in another GitHub repository. The digest values in those two generic template files are placeholders; runnable example packages have their real generated hashes in their own manifests.
 
 ## Suggested developer loop
 
@@ -26,5 +26,6 @@ The examples are deliberately small, but they now execute real code instead of o
 4. Restart PyGPT for Python/runtime Add-ons.
 5. Enable/configure the component and test it. Use `Config -> Settings -> Debug` and event/plugin logging while developing.
 6. Increase the manifest `version`, reinstall/update, and repeat.
+7. Before publishing, generate the final content pin with the PyGPT `bin/addon-sha256.sh` or `bin\addon-sha256.bat` helper using `--write`, commit the updated manifest, and copy the same SHA-256 to the public registry PR.
 
 See the **Add-ons API** page in the PyGPT documentation for lifecycle, manifest, packaging, publishing, API and method/event references.

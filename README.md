@@ -1,6 +1,6 @@
 # Official PyGPT Add-ons repository
 
-**Last updated:** 2026-09-30
+**Last updated:** 2026-10-01
 
 This is the official add-ons repository and public catalog for [PyGPT](https://github.com/szczyglis-dev/py-gpt). It contains the registries used by PyGPT to discover **official** and **third-party/community** add-ons, together with additional installable resources such as Agent Skills and MCP Connectors.
 
@@ -40,40 +40,18 @@ The same repository also publishes **Agent Skills** through `skills.json` and **
 
 Installable external add-ons use a `manifest.json` file that identifies the add-on and its type. Python-based add-ons declare an entry point and are loaded into the same runtime registries as built-in PyGPT components. Theme and locale packages use their normal PyGPT asset formats.
 
-External add-ons are profile-scoped and are installed under `%workdir%/addons`. They are designed to work with both source installations and compiled PyGPT builds.
+External add-ons are application-wide and are installed under the application base workdir's `addons` directory. They are shared by all profiles using that PyGPT installation and are designed to work with both source installations and compiled PyGPT builds.
 
 > [!WARNING]
-> Add-ons execute with the same permissions as PyGPT. Registry fields such as `trusted` and `official` are metadata, not a security sandbox. Always review third-party source code, dependencies, repository ownership, and requested capabilities before installing.
+> Add-ons execute with the same permissions as PyGPT. `trusted` and `official` are not a security sandbox or a guarantee that code is harmless. Public registry entries are content-pinned with SHA-256, and trusted entries must pass registry/manifest/content verification, which protects against silent upstream replacement after review. Always review third-party source code, dependencies, repository ownership, and requested capabilities before installing.
 
 ## Contributing
 
-You can publish your own add-on, Agent Skill, or MCP Connector from your GitHub repository by opening a pull request against the `master` branch of this repository.
+Community Add-on source code should stay in the author's own GitHub repository. Submit only the catalog link/metadata to this repository; do not vendor the third-party Add-on code here. Every public `addons.json` entry must include a deterministic `sha256` content pin, and the same digest must be committed in the Add-on's upstream `manifest.json`. Any later Add-on update requires a new digest and a new registry PR.
 
-Add an entry with a link to your GitHub project to the appropriate registry:
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for the complete PR workflow, SHA-256 generation commands, registry examples, update rules, and security-review checklist.
 
-- **PyGPT add-on:** `addons.json`
-- **MCP Connector:** `mcp.json`
-- **Agent Skill:** `skills.json`
-
-For a PyGPT add-on, make sure the linked add-on root contains a valid `manifest.json`, uses a unique ID, and declares a supported add-on type. A repository containing multiple add-ons may reference a specific subdirectory.
-
-To avoid collisions with built-in add-ons and add-ons from other authors, published add-on IDs should follow a GitHub-derived naming convention: `<github_user>_<repo_name>_<addon_name>`. Normalize characters to the manifest-safe form (lowercase letters, digits, `.`, `_`, and `-`). For example: `szczyglis_dev_py_gpt_example_plugin`. Keep the same ID stable across future releases of the add-on.
-
-Please include enough information for review, especially:
-
-- add-on/resource name and short description;
-- type;
-- author/maintainer;
-- GitHub repository URL and optional subdirectory/path;
-- version or Git ref when applicable;
-- dependency requirements;
-- security-sensitive capabilities such as filesystem, network, shell/command execution, desktop control, or credential access.
-
-After review and acceptance, the entry will become part of the official catalog and will be visible to PyGPT users in the corresponding **Explore/Browse** view. ✅
-
-### Registry ownership and metadata
-
-Being listed in the official repository does not automatically mean a third-party project is maintained by the PyGPT project. The catalog distinguishes official and third-party entries with metadata. Authors remain responsible for their repositories, releases, dependencies, licenses, and maintenance unless explicitly stated otherwise.
+Agent Skills and MCP Connectors use their respective registry formats; the Add-on SHA-256 rules described above apply to `addons.json`.
 
 ## Examples
 
@@ -84,6 +62,7 @@ The [`examples`](./examples) directory contains example add-on packages and refe
 Complete documentation for creating, packaging, installing, and publishing PyGPT add-ons is available here:
 
 **[PyGPT documentation - Extending PyGPT](https://pygpt.readthedocs.io/en/latest/extending.html)**
+
 **[PyGPT documentation - Add-ons API](https://pygpt.readthedocs.io/en/latest/addons_api.html)**
 
 It covers the add-on manifest, all supported add-on types, Python entry points, plugins and providers, themes, locale packs, GitHub/monorepo layouts, registry entries, profile portability, and custom launcher registration.

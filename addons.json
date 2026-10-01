@@ -5,24 +5,26 @@
       "name": "Example Plugin",
       "description": "Add-on stored inside the official registry repository.",
       "author": "PyGPT example",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "plugin",
       "path": "./examples/plugins/example_plugin",
       "trusted": true,
-      "official": true
+      "official": true,
+      "sha256": "9d8097c035cd49d44969d48135ea3b6cfca38c669dcac59d10243b5fd6874fd2"
     },
     {
       "id": "example-extension-dark",
       "name": "Third-party Theme",
       "description": "Add-on hosted in another GitHub repository.",
       "author": "Third-party author",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "type": "theme",
       "github_url": "https://github.com/szczyglis-dev/py-gpt-addons",
       "github_path": "examples/themes/example-extension-dark",
       "ref": "master",
       "trusted": false,
-      "official": false
+      "official": false,
+      "sha256": "339a5b5fdab83cb4c1d3485018ce431c9ccc408569aa177bae63a661f373ee21"
     }
   ]
 }
