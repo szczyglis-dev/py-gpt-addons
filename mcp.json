@@ -550,6 +550,22 @@
           }
         }
       }
+    },
+    {
+      "name": "estimate",
+      "display_name": "EstiMate",
+      "description": "Official EstiMate MCP server for collaborative software project estimation: projects, work packages, estimator invitations, an independent AI estimate and estimation review. Connect with OAuth, or set ESTIMATE_API_TOKEN to an API token created under AI connections in EstiMate.",
+      "publisher": "PYES Software",
+      "homepage": "https://estimate.pyes.software/ai",
+      "config": {
+        "mcpServers": {
+          "estimate": {
+            "url": "https://estimate.pyes.software/mcp",
+            "type": "http",
+            "bearer_token_env_var": "ESTIMATE_API_TOKEN"
+          }
+        }
+      }
     }
   ]
 }
